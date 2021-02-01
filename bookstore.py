@@ -17,11 +17,12 @@ class Book:
 
         self.bookstore = BookStore()
 
-    """ Checks if ID exists already for book object being passed. If yes, then calls update_book method.
-    update_book method takes newly entered data to update existing book object.
-    If book ID is not already present when book object is passed in, function will call add_book method.
-    add_book method takes new book object parameters to build a new record in DB with auto-created ID. """
+
     def save(self):
+        """ Checks if ID already exists for book object being passed. If yes, then calls update_book method.
+            update_book method takes newly entered data to update existing book object.
+            If book ID is not already present when book object is passed in, function will call add_book method.
+            add_book method takes new book object attributes to build a new record in DB with auto-generated ID. """
         if self.id:
             self.bookstore._update_book(self)
         else:
