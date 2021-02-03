@@ -58,12 +58,19 @@ def search_book():
 
 
 def change_read():
-
     book_id = ui.get_book_id()
-    book = store.get_book_by_id(book_id)  
-    new_read = ui.get_read_value()     
-    book.read = new_read 
-    book.save()
+    book = store.get_book_by_id(book_id)
+    if book:  # If book ID found in db
+        new_read = ui.get_read_value()
+        book.read = new_read
+        book.save()
+    else:  # If book ID not found in db
+        print('That book is not found.')
+        option = input('Return to main menu? Y for main menu. ').upper()
+        if option == 'Y':
+            print()
+        else:
+            change_read()  # restarts function for book ID input
     
 
 def quit_program():
