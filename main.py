@@ -66,7 +66,11 @@ def change_read():
         book.save()
     else:  # If book ID not found in db
         print('That book is not found.')
-        change_read()  # restarts function for book ID input
+        option = input('Return to main menu? Y for main menu. ').upper()
+        if option == 'Y':
+            print()
+        else:
+            change_read()  # restarts function for book ID input
     
 
 def quit_program():
