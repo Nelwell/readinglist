@@ -62,8 +62,15 @@ def change_read():
     book = store.get_book_by_id(book_id)
     if book:  # If book ID found in db
         new_read = ui.get_read_value()
+        # if else statement to determine what the state the book is in
+        if new_read == False:
+            read_var = '"not read"'
+        else:
+            read_var = '"read"'
         book.read = new_read
         book.save()
+        print('Book status has changed to', read_var)
+
     else:  # If book ID not found in db
         print('That book is not found.')
         option = input('Return to main menu? Y for main menu. ').upper()
