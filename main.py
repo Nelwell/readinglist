@@ -6,8 +6,8 @@ import ui
 
 store = BookStore()
 
-def main():
 
+def main():
     menu = create_menu()
 
     while True:
@@ -26,6 +26,7 @@ def create_menu():
     menu.add_option('4', 'Show Read Books', show_read_books)
     menu.add_option('5', 'Show All Books', show_all_books)
     menu.add_option('6', 'Change Book Read Status', change_read)
+    menu.add_option('7', 'Delete Book', delete_book)
     menu.add_option('Q', 'Quit', quit_program)
 
     return menu
@@ -35,12 +36,25 @@ def add_book():
     new_book = ui.get_book_info()
     try:
         new_book.save()
-    except: 
+    except:
         print('This book is already in the database.')
+
+
+def delete_book():
+    """ Deletes book by ID """
+
+    book_id = ui.get_book_id()
+    remove_book = store.get_book_by_id(book_id)
+    try:
+        remove_book.delete()
+    except:
+        print('\nError: Book Not Found\n')
+
 
 def show_read_books():
     read_books = store.get_books_by_read_value(True)
     ui.show_books(read_books)
+
 
 def show_unread_books():
     unread_books = store.get_books_by_read_value(False)
@@ -71,7 +85,6 @@ def change_read():
         book.read = new_read
         book.save()
         print('Book status has changed to', read_var)
-
     else:  # If book ID not found in db
         print('That book is not found.')
         option = input('Return to main menu? Y for main menu. ').upper()
@@ -79,7 +92,7 @@ def change_read():
             print()
         else:
             change_read()  # restarts function for book ID input
-    
+
 
 def quit_program():
     ui.message('Thanks and bye!')
